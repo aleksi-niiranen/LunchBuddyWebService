@@ -1,13 +1,12 @@
 class UrlMappings {
 
 	static mappings = {
-		"/$controller/$action?/$id?"{
-			constraints {
-				// apply constraints here
-			}
-		}
+        "/daily_json/$reftitle/$year/$month/$day"{
+            controller = "dailyJson"
+            action = "get"
+        }
 
-		"/"(view:"/index")
+		"/"(controller: "home", action:"index")
 		"500"(view:'/error')
 	}
 }

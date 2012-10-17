@@ -1,6 +1,6 @@
 package com.blogspot.fwfaill.lunchbuddywebservice
 
-class CourseController {
+class HomeController {
 
-    def scaffold = Course
+    def index() { }
 }

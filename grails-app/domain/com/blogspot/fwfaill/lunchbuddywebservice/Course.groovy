@@ -6,9 +6,15 @@ class Course {
     String titleEn
     String limitations
     String price
+    String refTitle
+    long timestamp
 
     static constraints = {
+        timestamp blank: false
+        refTitle blank: false
+        titleFi blank: true
+        titleEn blank: true
+        limitations blank: true
+        price blank: true
     }
-
-    static belongsTo = [menu:Menu]
 }

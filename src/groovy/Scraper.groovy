@@ -5,51 +5,69 @@ import org.jsoup.Jsoup
 
 class Scraper {
 
-    static Map WEEKDAYS = [0:"Maanantai", 1:"Tiistai", 2:"Keskiviikko", 3:"Torstai", 4:"Perjantai"]
+    static final def indexes = [Assari:1, Brygge:2, Delica:3, DeliPharma:4, Dental:5, Macciavelli:6, Mikro:7, Nutritio:8, Parkkis:9, Myssy:13]
 
-    static Map scrape() {
-        Document doc_fi = Jsoup.connect("http://www.unica.fi/fi/ravintolat/nutritio/").get()
-        Document doc_en = Jsoup.connect("http://www.unica.fi/en/restaurants/nutritio/").get()
+    static def scrape(timestamp) {
+        Document doc_fi = Jsoup.connect("http://www.unica.fi/fi/").get()
+        Document doc_en = Jsoup.connect("http://www.unica.fi/en/").get()
 
-        def menuListEn = [:]
-        def resultEn = doc_en.select(".menu-list div")
-        resultEn.each {
-            def courses = []
-            def weekday =  WEEKDAYS[it.child(0).attr("data-dayofweek").toInteger()]
-            def tableRows = it.select("table tr")
-            tableRows.each { row ->
-                courses << row.child(0).html()
-            }
-            menuListEn[weekday] = courses
-        }
+        def menuMapEn = parseEn doc_en
 
-        def menuListFi = [:]
-        def resultFi = doc_fi.select(".menu-list div")
-        resultFi.each {
-            def courses = []
-            def weekday =  WEEKDAYS[it.child(0).attr("data-dayofweek").toInteger()]
-            def tableRows = it.select("table tr")
-            tableRows.each { row ->
-                def course = [:]
-                course.title_fi = row.child(0).html()
-                def props = []
-                row.child(1).select("span").each { limitation ->
-                    props << limitation.html()
+        def menuMap = [:]
+        indexes.each { k,v ->
+            def menu = []
+            try {
+                def result = doc_fi.select("#menu-wrap ul").get(v)
+                def refTitle = result.child(0).html()
+                def courses = result.select "li"
+                courses.each { e ->
+                    try {
+                        def title = e.child(0).html()
+                        def properties = []
+                        def limitations = e.child(1).select(".G, .L, .M, .VL, .VEG").each {
+                            properties << it.html()
+                        }
+                        def price = e.child(3).html().substring 7
+                        def course = new Course(timestamp: timestamp, refTitle: refTitle, titleFi: title, 
+                                price: price, limitations: properties.join(" "))
+                        menu << course
+                    } catch (Exception ex) {
+                        // Catches exceptions that are thrown if menu contains entries that are not courses.
+                    }
                 }
-                course.properties = props.join(" ")
-                course.price = row.child(2).html().substring(7)
-                courses << course
+                menuMap[k] = menu
+            }catch (IndexOutOfBoundsException e) {
+                // consume exception. caused by no courses being served this day.
             }
-            menuListFi[weekday] = courses
-        }
 
-        for(int i = 0; i < 5; i++) {
-            def weekday = WEEKDAYS[i]
-            for(int j = 0; j < menuListFi[weekday].size(); j++) {
-                menuListFi[weekday][j].title_en = menuListEn[weekday][j]
+            def length = menu.size - 1
+            (0..length).each { i ->
+                menuMap[k][i].titleEn = menuMapEn[k][i]
             }
         }
         
-        return menuListFi
+                
+        return menuMap
+    }
+    
+    static def parseEn(Document doc) {
+        def menuMap = [:]
+        indexes.each { k,v ->
+            try {
+                def menu = []
+                def result = doc.select("#menu-wrap ul").get(v);
+                def courses = result.select "li";
+                courses.each { e ->
+                    if (!e.child(0).attr("class").equals("alert")) {
+                        def title = e.child(0).html()
+                        menu << title
+                    }
+                }
+                menuMap[k] = menu
+            } catch (IndexOutOfBoundsException e) {
+                // consume exception. caused by no courses being served this day.
+            }
+        }
+        return  menuMap
     }
 }

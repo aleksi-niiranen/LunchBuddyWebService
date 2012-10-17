@@ -53,5 +53,7 @@ grails.project.dependency.resolution = {
             exclude "database-session"
         }
         compile ":cloud-support:1.0.8"
+
+        compile ":quartz:1.0-RC2"
     }
 }
