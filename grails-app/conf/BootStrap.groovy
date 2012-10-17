@@ -1,4 +1,3 @@
-import com.blogspot.fwfaill.lunchbuddywebservice.Menu
 import com.blogspot.fwfaill.lunchbuddywebservice.Course
 import grails.converters.JSON
 
