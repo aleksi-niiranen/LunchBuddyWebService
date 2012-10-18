@@ -7,8 +7,8 @@ class BootStrap {
         // JSON marshallers
         JSON.registerObjectMarshaller(Course) {
             def json = [:]
-            json.title_fi = it.titleFi.encodeAsHTML()
-            json.title_en = it.titleEn.encodeAsHTML()
+            json.title_fi = it.titleFi
+            json.title_en = it.titleEn
             json.properties = it.limitations
             json.price = it.price
             return json

@@ -18,16 +18,17 @@ class Scraper {
             def menu = []
             try {
                 def result = doc_fi.select("#menu-wrap ul").get(v)
-                def refTitle = result.child(0).html()
+                def refTitle = result.child(0).html().decodeHTML()
                 def courses = result.select "li"
                 courses.each { e ->
                     try {
-                        def title = e.child(0).html()
+                        def title = e.child(0).html().decodeHTML()
                         def properties = []
                         def limitations = e.child(1).select(".G, .L, .M, .VL, .VEG").each {
                             properties << it.html()
                         }
-                        def price = e.child(3).html().substring 7
+                        def priceStr = e.child(3).html()
+                        def price = priceStr.substring 7, priceStr.length() - 2
                         def course = new Course(timestamp: timestamp, refTitle: refTitle, titleFi: title, 
                                 price: price, limitations: properties.join(" "))
                         menu << course
@@ -59,7 +60,7 @@ class Scraper {
                 def courses = result.select "li";
                 courses.each { e ->
                     if (!e.child(0).attr("class").equals("alert")) {
-                        def title = e.child(0).html()
+                        def title = e.child(0).html().decodeHTML()
                         menu << title
                     }
                 }
