@@ -11,6 +11,8 @@ class UrlMappings {
             action = "get2"
         }
 
+        "/coursescount"(controller: "home", action: "countCourses")
+
 		"/"(controller: "home", action:"index")
 		"500"(view:'/error')
 	}
