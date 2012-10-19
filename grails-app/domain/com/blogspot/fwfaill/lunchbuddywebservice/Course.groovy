@@ -6,12 +6,12 @@ class Course {
     String titleEn
     String limitations
     String price
-    String refTitle
+    String restaurant
     long timestamp
 
     static constraints = {
         timestamp blank: false
-        refTitle blank: false
+        restaurant blank: false
         titleFi blank: true
         titleEn blank: true
         limitations blank: true

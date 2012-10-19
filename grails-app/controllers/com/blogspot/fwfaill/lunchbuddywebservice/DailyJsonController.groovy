@@ -5,7 +5,7 @@ import grails.converters.JSON
 class DailyJsonController {
 
     def get() {
-        def refTitle = params.reftitle
+        def restaurant = params.restaurant
         def date = new GregorianCalendar(TimeZone.getTimeZone("Europe/Helsinki"), new Locale("Finnish", "Finland"))
         date.set Calendar.HOUR_OF_DAY, 0
         date.set Calendar.MINUTE, 0
@@ -16,19 +16,11 @@ class DailyJsonController {
         date.set Calendar.DATE, params.day.toInteger()
         def timestamp = date.timeInMillis / 1000
 
-        def courses = Course.findAllByRefTitleAndTimestamp(refTitle, timestamp)
+        def courses = Course.findAllByRestaurantAndTimestamp(restaurant, timestamp)
 
         render(contentType: "text/json") {
-            def meta = [requested_timestamp: timestamp, ref_title: refTitle]
+            def meta = [requested_timestamp: timestamp, ref_title: restaurant]
             [meta: meta, courses: courses]
         }
-    }
-
-    def get2() {
-        def timestamp = params.timestamp
-
-        def courses = Course.findAllByTimestamp timestamp
-
-        render courses as JSON
     }
 }

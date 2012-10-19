@@ -29,7 +29,7 @@ class Scraper {
                         }
                         def priceStr = e.child(3).html()
                         def price = priceStr.substring 7, priceStr.length() - 2
-                        def course = new Course(timestamp: timestamp, refTitle: refTitle, titleFi: title, 
+                        def course = new Course(timestamp: timestamp, restaurant: refTitle, titleFi: title, 
                                 price: price, limitations: properties.join(" "))
                         menu << course
                     } catch (Exception ex) {
