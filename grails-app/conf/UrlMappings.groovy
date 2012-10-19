@@ -8,7 +8,7 @@ class UrlMappings {
 
         "/courses/$timestamp" {
             controller = "dailyJson"
-            action = "get2
+            action = "get2"
         }
 
 		"/"(controller: "home", action:"index")
