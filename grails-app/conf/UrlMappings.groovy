@@ -6,6 +6,11 @@ class UrlMappings {
             action = "get"
         }
 
+        "/courses/$timestamp" {
+            controller = "dailyJson"
+            action = "get2
+        }
+
 		"/"(controller: "home", action:"index")
 		"500"(view:'/error')
 	}

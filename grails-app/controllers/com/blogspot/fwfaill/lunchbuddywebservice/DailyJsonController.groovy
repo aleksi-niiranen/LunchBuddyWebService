@@ -23,4 +23,12 @@ class DailyJsonController {
             [meta: meta, courses: courses]
         }
     }
+
+    def get2() {
+        def timestamp = params.timestamp
+
+        def courses = Course.findAllByTimestamp timestamp
+
+        render courses as JSON
+    }
 }
