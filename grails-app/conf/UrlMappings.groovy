@@ -6,6 +6,8 @@ class UrlMappings {
             action = "get"
         }
 
+        "/$controller/$action?/$id?" { }
+
 		"/"(controller: "home", action:"index")
 		"500"(view:'/error')
 	}
