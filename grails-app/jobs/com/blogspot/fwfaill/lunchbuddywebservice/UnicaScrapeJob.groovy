@@ -4,12 +4,12 @@ package com.blogspot.fwfaill.lunchbuddywebservice
 
 class UnicaScrapeJob {
     static triggers = {
-        cron name: 'scrapeTrigger', cronExpression: "0 0 13 ? * MON-FRI"
+        cron name: 'scrapeTrigger', cronExpression: "0 30 1 ? * MON-FRI"
     }
 
     def execute() {
         // execute job
-        def date = new GregorianCalendar()
+        def date = new GregorianCalendar(TimeZone.getTimeZone("Europe/Helsinki"), new Locale("Finnish", "Finland"))
         date.set Calendar.HOUR_OF_DAY, 0
         date.set Calendar.MINUTE, 0
         date.set Calendar.SECOND, 0
