@@ -57,5 +57,7 @@ grails.project.dependency.resolution = {
 
         compile ":quartz:0.4.2"
         compile ":quartz-monitor:0.2"
+
+        compile ":mongodb:1.0.0.GA"
     }
 }
