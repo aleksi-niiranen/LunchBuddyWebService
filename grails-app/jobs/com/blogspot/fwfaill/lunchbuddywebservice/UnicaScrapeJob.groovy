@@ -4,7 +4,7 @@ package com.blogspot.fwfaill.lunchbuddywebservice
 
 class UnicaScrapeJob {
     static triggers = {
-        cron name: 'scrapeTrigger', cronExpression: "0 30 1 ? * MON-FRI"
+        cron name: 'scrapeTrigger', cronExpression: "0 30 1 ? * MON-FRI", timeZone: TimeZone.getTimeZone("Europe/Helsinki")
     }
 
     def execute() {

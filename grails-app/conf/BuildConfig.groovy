@@ -23,6 +23,7 @@ grails.project.dependency.resolution = {
         mavenCentral()
 
         mavenRepo "http://grails.org/plugins"
+        mavenRepo "http://maven.springframework.org/milestone/"
 
         // uncomment these to enable remote dependency resolution from public Maven repositories
         //mavenCentral()
@@ -51,10 +52,8 @@ grails.project.dependency.resolution = {
 
         build ":tomcat:$grailsVersion"
 
-        compile (":heroku:1.0.1") {
-            exclude "database-session"
-        }
-        compile ":cloud-support:1.0.8"
+        compile ":webxml:1.4.1"
+        compile ":cloud-foundry:1.2.3"
 
         compile ":quartz:0.4.2"
         compile ":quartz-monitor:0.2"
