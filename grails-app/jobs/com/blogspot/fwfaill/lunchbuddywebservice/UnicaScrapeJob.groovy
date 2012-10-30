@@ -14,13 +14,19 @@ class UnicaScrapeJob {
         date.set Calendar.MINUTE, 0
         date.set Calendar.SECOND, 0
         date.set Calendar.MILLISECOND, 0
+        def timestamp = date.timeInMillis / 1000
 
-        def menus = Scraper.scrape date.timeInMillis / 1000
+        def menus = Scraper.scrape timestamp
         
         menus.each { k,v ->
             v.each { course ->
                 course.save(flush: true)
             }
+        }
+
+        def oldCourses = Course.findAllByTimestampLessThan timestamp
+        oldCourses.each {
+            it.delete()
         }
     }
 }
