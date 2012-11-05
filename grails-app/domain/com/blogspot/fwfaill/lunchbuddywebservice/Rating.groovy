@@ -6,13 +6,15 @@ class Rating {
 
     ObjectId id
     String course
-    String comment
+    String restaurant
+    int goodRatings
+    int badRatings
     Date dateCreated
 
     static mapWith = "mongo"
 
     static constraints = {
         course blank: false
-        comment blank: true
+        restaurant blank: false
     }
 }

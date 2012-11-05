@@ -23,8 +23,8 @@ class Scraper {
                 courses.each { e ->
                     try {
                         def title = e.child(0).html().decodeHTML()
-                        def properties = []
-                        def limitations = e.child(1).select(".G, .L, .M, .VL, .VEG").each {
+                        def properties = [] as Set
+                        def limitations = e.child(1).select("span > *").each {
                             properties << it.html()
                         }
                         def priceStr = e.child(3).html()
@@ -59,6 +59,7 @@ class Scraper {
                 def result = doc.select("#menu-wrap ul").get(v);
                 def courses = result.select "li";
                 courses.each { e ->
+                    if (v == 3 && v == 4) println "${k} / ${e}"
                     if (!e.child(0).attr("class").equals("alert")) {
                         def title = e.child(0).html().decodeHTML()
                         menu << title

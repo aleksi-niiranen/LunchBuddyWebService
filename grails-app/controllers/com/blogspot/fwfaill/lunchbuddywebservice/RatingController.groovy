@@ -2,19 +2,23 @@ package com.blogspot.fwfaill.lunchbuddywebservice
 
 class RatingController {
 
-    def scaffold = true
+    def index() {
+        redirect(action: "list", params: params)
+    }
 
-    def rate() {
-        def course = params.course
-        def comment = params.comment ?: ""
+    def list() {
+        params.max = Math.min(params.max ? params.int('max') : 10, 100)
+        [ratingInstanceList: Rating.list(params), ratingInstanceTotal: Rating.count()]
+    }
 
-        def rating = new Rating(course: course, comment: comment)
-
-        if (!rating.save(flush: true)) {
-            render rating.errors
+    def show() {
+        def ratingInstance = Rating.get(params.id)
+        if (!ratingInstance) {
+			flash.message = message(code: 'default.not.found.message', args: [message(code: 'rating.label', default: 'Rating'), params.id])
+            redirect(action: "list")
             return
         }
-        
-        redirect action: "show", id: rating.id
+
+        [ratingInstance: ratingInstance]
     }
 }
