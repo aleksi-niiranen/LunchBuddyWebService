@@ -93,3 +93,9 @@ log4j = {
 }
 
 grails.plugin.cloudfoundry.appname = "lunchbuddy"
+
+// Added by the Spring Security Core plugin:
+grails.plugins.springsecurity.userLookup.userDomainClassName = 'com.blogspot.fwfaill.lunchbuddywebservice.User'
+grails.plugins.springsecurity.userLookup.authorityJoinClassName = 'com.blogspot.fwfaill.lunchbuddywebservice.UserRole'
+grails.plugins.springsecurity.authority.className = 'com.blogspot.fwfaill.lunchbuddywebservice.Role'
+grails.plugins.springsecurity.password.algorithm = 'bcrypt'

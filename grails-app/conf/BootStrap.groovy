@@ -1,3 +1,6 @@
+import com.blogspot.fwfaill.lunchbuddywebservice.User
+import com.blogspot.fwfaill.lunchbuddywebservice.Role
+import com.blogspot.fwfaill.lunchbuddywebservice.UserRole
 import com.blogspot.fwfaill.lunchbuddywebservice.Course
 import com.blogspot.fwfaill.lunchbuddywebservice.Restaurant
 import grails.converters.JSON
@@ -5,6 +8,11 @@ import grails.converters.JSON
 class BootStrap {
 
     def init = { servletContext ->
+        def adminRole = Role.findByAuthority('ROLE_ADMIN') ?: new Role(authority: 'ROLE_ADMIN').save(failOnError: true)
+        def admin = User.findByUsername('admin') ?: new User(username: 'admin', enabled: true, password: 'LunchBuddyAdminSecretPassword').save(failOnError: true)
+        if (!admin.authorities.contains(adminRole)) {
+            UserRole.create admin, adminRole, true
+        }
         // Restaurants
         def restaurant = Restaurant.findByRefTitle("Aurinkolaiva") ?: new Restaurant(refTitle: "Aurinkolaiva").save(failOnError: true)
         restaurant = Restaurant.findByRefTitle("ICT - talo") ?: new Restaurant(refTitle: "ICT - talo").save(failOnError: true)

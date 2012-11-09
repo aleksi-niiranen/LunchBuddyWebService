@@ -17,7 +17,7 @@ class RatingsJob {
         }
 
         courses.each {
-            def rating = new Rating(course: it.titleFi, restaurant: it.restaurant, goodRatings: it.goodRatings, badRatings: it.badRatings).save()
+            def rating = new Rating(course: it.titleFi, restaurant: it.restaurant, goodRatings: it.goodRatings, badRatings: it.badRatings).save(flush: true)
         }
     }
 }

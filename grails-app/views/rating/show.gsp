@@ -68,11 +68,14 @@
 				</g:if>
 			
 			</ol>
+            <sec:ifAllGranted roles="ROLE_ADMIN">
 			<g:form>
 				<fieldset class="buttons">
 					<g:hiddenField name="id" value="${ratingInstance?.id}" />
+                    <g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" />
 				</fieldset>
 			</g:form>
+            </sec:ifAllGranted>
 		</div>
 	</body>
 </html>
