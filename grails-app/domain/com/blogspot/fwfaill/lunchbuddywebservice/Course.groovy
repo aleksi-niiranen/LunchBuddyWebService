@@ -4,6 +4,7 @@ class Course {
 
     String titleFi
     String titleEn
+    String titleSe
     String limitations
     String price
     String restaurant
@@ -16,6 +17,7 @@ class Course {
         restaurant blank: false
         titleFi blank: true
         titleEn blank: true, nullable: true
+        titleSe blank: true, nullable: true
         limitations blank: true, nullable: true
         price blank: true, nullable: true
     }

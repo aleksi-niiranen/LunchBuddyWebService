@@ -10,8 +10,10 @@ class Scraper {
     static def scrape(timestamp) {
         Document doc_fi = Jsoup.connect("http://www.unica.fi/fi/").get()
         Document doc_en = Jsoup.connect("http://www.unica.fi/en/").get()
+        Document doc_se = Jsoup.connect("http://www.unica.fi/se/").get()
 
         def menuMapEn = parseEn doc_en
+        def menuMapSe = parseSe doc_se
 
         def menuMap = [:]
         indexes.each { k,v ->
@@ -44,6 +46,7 @@ class Scraper {
             def length = menu.size - 1
             (0..length).each { i ->
                 menuMap[k][i].titleEn = menuMapEn[k][i]
+                menuMap[k][i].titleSe = menuMapSe[k][i]
             }
         }
         
@@ -56,10 +59,9 @@ class Scraper {
         indexes.each { k,v ->
             try {
                 def menu = []
-                def result = doc.select("#menu-wrap ul").get(v);
-                def courses = result.select "li";
+                def result = doc.select("#menu-wrap ul").get(v)
+                def courses = result.select "li"
                 courses.each { e ->
-                    if (v == 3 && v == 4) println "${k} / ${e}"
                     if (!e.child(0).attr("class").equals("alert")) {
                         def title = e.child(0).html().decodeHTML()
                         menu << title
@@ -71,5 +73,26 @@ class Scraper {
             }
         }
         return  menuMap
+    }
+
+    static def parseSe(Document doc) {
+        def menuMap = [:]
+        indexes.each { k,v ->
+            try {
+                def menu = []
+                def result = doc.select("#menu-wrap ul").get(v)
+                def courses = result.select "li"
+                courses.each { e ->
+                    if (!e.child(0).attr("class").equals("alert")) {
+                        def title = e.child(0).html().decodeHTML()
+                        menu << title
+                    }
+                }
+                menuMap[k] = menu
+            } catch (IndexOutOfBoundsException e) {
+                println "index out of bounds"
+            }
+        }
+        return menuMap
     }
 }

@@ -56,9 +56,9 @@ grails.project.dependency.resolution = {
         compile ":cloud-foundry:1.2.3"
 
         compile ":mongodb:1.0.0.GA"
-        compile ":quartz:1.0-RC2"
-        //compile ":quartz:0.4.2"
-        //compile ":quartz-monitor:0.2"
+        //compile ":quartz:1.0-RC2"
+        compile ":quartz:0.4.2"
+        compile ":quartz-monitor:0.2"
 
         compile ":spring-security-core:1.2.7.3"
         runtime ":rest:0.7"

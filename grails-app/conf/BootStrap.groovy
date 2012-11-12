@@ -34,6 +34,7 @@ class BootStrap {
             json.id = it.id
             json.title_fi = it.titleFi
             json.title_en = it.titleEn
+            json.title_se = it.titleSe
             json.properties = it.limitations
             json.price = it.price
             return json
