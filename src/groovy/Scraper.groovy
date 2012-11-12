@@ -5,7 +5,7 @@ import org.jsoup.Jsoup
 
 class Scraper {
 
-    static final def indexes = [Assari:1, Brygge:2, Delica:3, DeliPharma:4, Dental:5, Macciavelli:6, Mikro:7, Nutritio:8, Parkkis:9, Myssy:13]
+    static final def indexes = [Assari:1, Brygge:2, Delica:3, DeliPharma:4, Dental:5, Macciavelli:6, Mikro:7, Nutritio:8, Parkkis:9, Ruokakello:10, Tottisalmi:11, Arcanum:12, Myssy:13]
 
     static def scrape(timestamp) {
         Document doc_fi = Jsoup.connect("http://www.unica.fi/fi/").get()

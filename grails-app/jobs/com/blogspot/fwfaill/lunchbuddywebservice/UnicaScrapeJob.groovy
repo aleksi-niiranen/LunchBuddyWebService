@@ -75,5 +75,31 @@ class UnicaScrapeJob {
                 }
             }
         }
+        // eurocity
+        http.request(GET, JSON) {
+            uri.path = "/ruokalistat/output/daily_json/391/${year}/${month}/${day}/fi"
+
+            response.success = { resp, json ->
+                def req_timestamp = json.meta.requested_timestamp
+                def refTitle = json.meta.ref_title
+
+                json.courses.each {
+                    def course = new Course(titleFi: it.title_fi, titleEn: it.title_en, limitations: it.properties, price: it.price, timestamp: req_timestamp, restaurant: refTitle).save()
+                }
+            }
+        }
+        // old mill
+        http.request(GET, JSON) {
+            uri.path = "/ruokalistat/output/daily_json/451/${year}/${month}/${day}/fi"
+
+            response.success = { resp, json ->
+                def req_timestamp = json.meta.requested_timestamp
+                def refTitle = json.meta.ref_title
+
+                json.courses.each {
+                    def course = new Course(titleFi: it.title_fi, titleEn: it.title_en, limitations: it.properties, price: it.price, timestamp: req_timestamp, restaurant: refTitle).save()
+                }
+            }
+        }
     }
 }

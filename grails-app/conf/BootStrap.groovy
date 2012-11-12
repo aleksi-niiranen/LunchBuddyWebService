@@ -26,7 +26,12 @@ class BootStrap {
         restaurant = Restaurant.findByRefTitle("Macciavelli") ?: new Restaurant(refTitle: "Macciavelli").save(failOnError: true)
         restaurant = Restaurant.findByRefTitle("Mikro") ?: new Restaurant(refTitle: "Mikro").save(failOnError: true)
         restaurant = Restaurant.findByRefTitle("Parkkis") ?: new Restaurant(refTitle: "Parkkis").save(failOnError: true)
+        restaurant = Restaurant.findByRefTitle("Ruokakello") ?: new Restaurant(refTitle: "Ruokakello").save(failOnError: true)
+        restaurant = Restaurant.findByRefTitle("Tottisalmi") ?: new Restaurant(refTitle: "Tottisalmi").save(failOnError: true)
+        restaurant = Restaurant.findByRefTitle("Arcanum") ?: new Restaurant(refTitle: "Arcanum").save(failOnError: true)
         restaurant = Restaurant.findByRefTitle("Myssy & Silinteri") ?: new Restaurant(refTitle: "Myssy & Silinteri").save(failOnError: true)
+        restaurant = Restaurant.findByRefTitle("EuroCity") ?: new Restaurant(refTitle: "EuroCity").save(failOnError: true)
+        restaurant = Restaurant.findByRefTitle("Old Mill") ?: new Restaurant(refTitle: "Old Mill").save(failOnError: true)
 
         // JSON marshallers
         JSON.registerObjectMarshaller(Course) {
