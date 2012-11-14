@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Lunch Buddy JSON API</title>
+        <meta charset="utf-8">
+    </head>
+    <body>
+        <h2>Lunch Buddy JSON API</h2>
+
+        <p>This is the API that serves the <a href="https://play.google.com/store/apps/details?id=com.blogspot.fwfaill.lunchbuddy">Lunch Buddy Android application</a>.</p>
+
+        <h2>Usage</h2>
+
+        <p>There are two URLs. One for the courses and for rating a course. The URL for courses consists of the restaurant name, year, month and date. URLs look like this <code>http://lunchbuddy.cloudfoundry.com/daily_json/Nutritio/2012/11/14</code>. The response includes a timestamp (date at 00.00:00 in seconds), the name of the restaurant, the courses in all available languages with prices and properties such as gluten free and an id that will be used when rating a course.</p>
+
+        <p>Sample response<br/>
+        <code>{"meta":{"requested_timestamp":1352844000,"ref_title":"Nutritio"},"courses":[{"id":426,"title_fi":"Rapeat kalapalat, tartarkastike","title_en":"Crispy fish pieces","title_se":"Spröda fiskbitar","properties":"L M G","price":"2,20 / 5,20 / 7,20"},{"id":427,"title_fi":"Siskonmakkarakeitto","title_en":"Sausage soup","title_se":"Knackorvsoppa","properties":"G L M","price":"1,75 / 4,00 / 5,50"},{"id":428,"title_fi":"Kikhernepihvit, Jogurttikastike","title_en":"Chickpea patties","title_se":"Kikärtsbiffar","properties":"G L M","price":"2,20 / 5,20 / 7,20"},{"id":429,"title_fi":"Sitruunakiisseli, tallimestarin tapaan","title_en":"Lemon fool","title_se":"Citronkräm","properties":"L M","price":"1,00 / 1,00 / 1,20"},{"id":430,"title_fi":"KAHVIO, Paahtopaistisalaatti","title_en":"Roast beef salad","title_se":"Rostbiffsallad","properties":"G L M","price":"3,50 / 4,00 / 3,50"}]}</code>
+        </p>
+
+        <p>The following restaurants are available. Escape spaces and &-sign in the url with %20 and %26. The urls are case sensitive.</p>
+        <ul>
+            <li>Aurinkolaiva</li>
+            <li>ICT - talo</li>
+            <li>Lemminkäisenkatu</li>
+            <li>Nutritio</li>
+            <li>Assarin ullakko</li>
+            <li>Brygge</li>
+            <li>Delica</li>
+            <li>Deli Pharma</li>
+            <li>Dental</li>
+            <li>Macciavelli</li>
+            <li>Mikro</li>
+            <li>Parkkis</li>
+            <li>Myssy & Silinteri</li>
+            <li>Ruokakello</li>
+            <li>Tottisalmi</li>
+            <li>Arcanum</li>
+            <li>EuroCity</li>
+            <li>Old Mill</li>
+        </ul>
+
+        <h3>Ratings</h3>
+
+        <p>The API exposes a way to rate a course good or bad. The url for ratings is <code>http://lunchbuddy.cloudfoundry.com/course/rate?id=426&rating=good</code>. The id is included in the JSON response. Value for rating param can be <code>good</code> or <code>bad</code>.</p>
+    </body>
+</html>
